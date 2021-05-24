@@ -1,0 +1,154 @@
+*{
+	margin: 0;
+	padding: 0;
+	font-family: 'arial', sans-serif;
+	box-sizing: border-box;
+}
+section{
+	position: relative;
+	width: 100%;
+    display: flex;
+    flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+section .header{
+    display: flex;
+    top: 0;
+	width: 100%;
+    height: 120px;
+    background-color:  #f8bbba;
+    justify-content: space-between;
+    position: relative;
+    z-index: 1;
+}
+section .header div{
+    display: flex;
+}
+section .header li{
+    list-style: none;
+    display: inline-flex;
+    padding: 10px;
+}
+section .header_icon img{
+    width: 50px;
+    height: 50px;
+    padding: 10px;
+}
+section .header .search_area{
+    position: relative;
+    width: 100%;
+    margin-left: -200px;
+    margin-top: 65px;
+}
+section .header .search{
+    width: 100%;
+    height: 45px;
+	padding-left: 20px;
+	padding-right: 50px;
+    border: 1px solid #ccc;
+    font-size: 30px;
+    background-color: #fff;
+	border-radius: 30px;
+}
+section .header .search_area img{
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    right: 0px;
+    padding: 10px 10px 15px 15px;
+    display: flex;
+    pointer-events: none;
+}
+#search_ajax{
+    height: 15vh;
+    width:100%;
+    background-color: white;
+    z-index: 2;
+    border-radius: 15px;
+    margin-top: 5px;
+    border: 1.5px solid pink;
+    display: none;
+}
+
+section .header .login button{
+    padding: 10px;
+    height: 40px;
+    width: 130px;
+    margin-top: 12px;
+    margin-right: 10px;
+    justify-content: center;
+    display: none;
+}
+section .header .account{
+    padding: 10px;
+    height: 40px;
+    width: 130px;
+    margin-top: 13px;
+    margin-right: 10px;
+    justify-content: center;
+    display: flex;  
+}
+
+section .main{
+    min-height: 100vh;
+    width: 96vw;
+}
+
+section .footer{
+    display: flex;
+    top: 0;
+	width: 100%;
+    height: 50px;
+    padding: 20px;
+    background-color: #FFD7D8;
+	justify-content: space-between;
+	position: relative;
+}
+
+section .footer p{
+    margin-left: -10px;
+    margin-top: -8px;
+}
+section .footer button{
+    padding: 6px;
+    height: 30px;
+    margin-top: -16px;
+    display: flex;
+    width: fit-content;
+}
+
+
+@media (min-width: 600px){
+    section .header .logo{
+        margin-left: 5vw;
+    }
+}
+
+@media (min-width: 1000px){
+    section .header{
+        height: 70px;
+    }
+
+    section .header .search_area{
+        margin-left: 30px;
+        margin-top: 12px;
+    }
+
+    section .header .login button{
+        display: flex;
+        margin-right: 5vw;
+    }
+    section .header .account{
+        display: none;
+        margin-right: 10vw;
+    }
+
+    section .footer p{
+        margin-left: 10vw;
+    }
+
+    section .footer button{
+        margin-right: 10vw;
+    }
+}

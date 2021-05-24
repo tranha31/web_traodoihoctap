@@ -1,0 +1,136 @@
+<div class="modal-each">
+<div>
+<p><?php echo "<span style='font-weight:bold;'>".$item['name']."</span> ".$item['act']." your post: ".$item['title']?></p>
+</div>
+<hr>
+<div style="display: flex; justify-content:flex-end;"><p><i><?php echo $item["act_time"] ?></i></p></div>
+</div>
+
+
+
+<div class="modal-each">
+<div>
+<p><span style='font-weight:bold;' id="name_noti"></span>-<span id="act_noti"></span>-<span id="title_noti"></span></p>
+</div>
+<hr><div style="display: flex; justify-content:flex-end;"><p><i id="act_time_noti"></i></p></div>
+</div>
+
+
+
+<?php 
+    header("Content-Type: text/xml");
+    echo "<?xml version=\"1.0\"?>\n";
+    $sqlNotification = 'select per.name, art.title, act.act, act.act_time from actions act, articles art, account_infor acc, personal_infor per
+    where  act.id = art.id 
+    and art.account = "'.$account.'"
+    and act.account = acc.account
+    and acc.account = per.account
+    order by act_time desc limit 5 offset 0;';
+    $result = $con->query($sqlNotification);
+    if(!empty($result)){
+        $countNotification = $result->num_rows;
+        $c = 0;
+        echo "<items>\n";
+        foreach($result as $item):
+            $c ++;
+            if($c > $countNotification) break;
+            echo "<item>\n";
+            echo "<name>".$item['name']."</name>\n";
+            echo "<act>".$item['act']."</act>\n";
+            echo "<title>".$item['title']."</title>\n";
+            echo "<act-time>".$item['act_time']."</act-time>\n";
+            echo "</item>";
+        endforeach;
+        echo "</items>";
+    }
+?>
+
+
+section .main .body .react {
+    position: relative;
+    height: auto;
+    width: 80%;
+    margin: auto;
+    margin-bottom: 10px;
+    border-top: 1px dotted #f5a4a3; 
+    border-bottom: 1px dotted #f5a4a3;
+    padding: 8px; 
+    overflow: auto;
+    display:flex;
+    flex-direction: row;
+    justify-content: center;
+    justify-items: center;
+}
+
+section .main .body .react li {
+    list-style-type: none;
+    float: left;
+    cursor: pointer;
+}
+
+section .main .body .react img {
+    height: 20px;
+    width: 20px;
+    margin-right: 10px;
+}
+
+section .main .body .react input[type=image]{
+    height: 20px;
+    width: 20px;
+    margin: auto;
+    display: inline-block;
+    vertical-align: top
+}
+
+section .main .body .react button{
+    border: none;
+    background: none;
+    display: none;
+    position:relative;
+    margin-bottom: 3px;
+}
+
+section .main .body .react .react_cmt p {
+    display: none;
+}
+
+section .main .body .react button:hover{
+    cursor: pointer;
+}
+
+section .main .body .react  p {
+    margin: auto;
+    font-size: 16px;
+}
+
+section .main .body .react .react_like, .react_cmt, .react_share {
+    width: 30%;
+    height: auto;
+    overflow: auto;
+    margin: 0px 3px;
+    padding: 3px;
+    display: inline-flex;
+    flex-direction: row;
+    justify-items: center;
+    justify-content: center;
+    border: 1px dotted black;
+}
+
+section .main .body .react .react_like:hover {
+    background-color: #f8bbba;
+    border: 1px solid #f8bbba;
+    border-radius: 3%;
+}
+
+section .main .body .react .react_cmt:hover {
+    background-color: #f8bbba;
+    border: 1px solid #f8bbba;
+    border-radius: 3%;
+}
+
+
+section .main .body .react .react_share:hover {
+    background-color: #f8bbba;
+    border: 1px solid #f8bbba;
+    border-radius: 3%;
+}

@@ -1,0 +1,199 @@
+*{
+	margin: 0;
+	padding: 0;
+	font-family: 'arial', sans-serif;
+	box-sizing: border-box;
+}
+::-webkit-scrollbar {
+    width: 12px;
+    height: 12px;
+}  
+::-webkit-scrollbar-track {
+    border-radius: 10px;
+    width: 2px;
+    border: 1px dotted #f8bbba;
+}
+::-webkit-scrollbar-thumb {
+    background: #FFD7D8; 
+    border-radius: 10px;
+} 
+::-webkit-scrollbar-thumb:hover {
+    background: #f5a4a3;  
+}
+section{
+	position: relative;
+	width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+	
+}
+section .header{
+    display: flex;
+    top: 0;
+	width: 100%;
+    height: 120px;
+    background-color:  #f8bbba;
+    justify-content: space-between;
+    position: relative;
+    z-index: 1;
+}
+section .header div{
+    display: flex;
+}
+section .header li{
+    list-style: none;
+    display: inline-flex;
+    padding: 10px;
+}
+section .header_icon img{
+    padding: 10px;
+    width: 50px;
+    height: 50px;
+}
+section .header .search_area{
+    position: relative;
+    width: 100%;
+    margin-left: -200px;
+	margin-top: 65px;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    
+}
+section .header .search{
+    width: 100%;
+    height: 45px;
+	padding-left: 20px;
+	padding-right: 50px;
+    border: 1px solid #ccc;
+    font-size: 15px;
+    background-color: #fff;
+	border-radius: 30px;
+    
+}
+section .header .search_area img{
+    position: absolute;
+    width: 50px;
+    right: 0px;
+    padding: 10px 10px 15px 15px;
+    display: flex;
+    pointer-events: none;
+}
+
+section .header .login button{
+    padding: 10px;
+    height: 40px;
+    width: 130px;
+    margin-top: 12px;
+    margin-right: 10px;
+    justify-content: center;
+    display: flex;
+    background-color: white;
+    border: 1px solid grey;
+    font-size: 15px;
+}
+section .header .login button:hover{
+    cursor: pointer;
+}
+section .header .account{
+    padding: 10px;
+    height: 40px;
+    width: 130px;
+    margin-top: 13px;
+    margin-right: 10px;
+    justify-content: center;
+    display: flex;  
+    align-items: center;
+}
+section .header .account a{
+    color: white;
+    font-size: 20px;
+    margin-bottom:-2px;
+    margin-right: 25px;
+}
+section .header .account img{
+    height: 30px;
+    width: 30px;
+}
+
+#search_ajax{
+    height: 10vh;
+    width:100%;
+    background-color: white;
+    z-index: 6;
+    border-radius: 15px;
+    margin-top: 5px;
+    border: 1.5px solid pink;
+    display: none;
+    position: relative;
+    overflow: auto;
+}
+#search_ajax a{
+    margin-top: 5px;
+    margin-left: 15px;
+}
+section .main{
+    margin-left: auto;
+    margin-right: auto;
+    width: 80vw;
+}
+
+
+section .footer{
+    display: flex;
+    top:0;
+	width: 100%;
+    height: 60px;
+    padding: 20px;
+    background-color: #FFD7D8;
+    justify-content: space-between;
+    justify-items: center;
+    flex-direction: row;
+    position: relative;
+    align-items: center;
+    
+}
+section .footer p{
+    margin-left: -10px;
+    margin-top: -7px;
+}
+section .footer button{
+    padding: 6px;
+    display: flex;
+    width: fit-content;
+    height: 30px;
+}
+
+
+@media (min-width: 600px){
+    section .header .logo{
+        margin-left: 5vw;
+    }
+
+}
+
+@media (min-width: 1000px){
+    section .header{
+        height: 70px;
+    }
+    section .header .search_area{
+        margin-left: 30px;
+        margin-top: 12px;
+    }
+    section .header .login button{
+        margin-right: 5vw;
+    }
+    section .header .account{
+        margin-right: 10vw;
+    }
+
+    
+    section .footer p{
+        margin-left: 10vw;
+    }
+    section .footer button{
+        margin-right: 3vw;
+    }
+}

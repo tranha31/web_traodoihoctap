@@ -1,0 +1,161 @@
+body{
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    flex-direction: row;
+    background-image: url(picture/B.png);
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+#welcome{
+    width: 55vw;
+    height: 50vh;
+    margin-top: auto;
+    margin-bottom: auto;
+    display: flex;
+    flex-direction: column;
+}
+#welcome h2{
+    font-size: 65px;
+    font-family: cursive;
+    color: #71b2fc;
+    margin-left: 15vw;
+    margin-bottom: 0;
+}
+#welcome h4{
+    font-size: 35px;
+    color: white;
+    margin-left: 15vw;
+    font-family: cursive;
+}
+#main{
+    background-color: white;
+    width: 400px;
+    height: 500px;
+    margin-bottom: auto;
+    margin-top: auto;
+    margin-left: 50px;
+    display: flex;
+    flex-direction: column;
+    border-radius: 15px;
+    border: 2px solid pink;
+    
+}
+#ava{
+    width: 50px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10px;
+}
+h1{
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 5px;
+    font-size: 40px;
+    
+}
+.login{
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 1px;
+    width: 80%;
+    height: 60%;
+    display: flex;
+    flex-direction: column;
+}
+.login p{
+    font-size: 20px;
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+input{
+    margin-top: 0;
+    height: 50px;
+    border-radius: 10px;
+    border: 1px solid grey;
+}
+.i{
+    margin-bottom: 20px;
+}
+
+button{
+    margin-top: 40px;
+    height: 50px;
+    border: none;
+    border-radius: 10px;
+    font-size: 20px;
+    color: white;
+    background-color: #fc71c4;
+}
+button:hover{
+    background-color: #feca3a;
+    cursor: pointer;
+    color: black;
+}
+.link{
+    margin-left: 50px;
+    margin-bottom: 5px;
+    font-style: oblique;
+    font-family: Arial;
+    
+}
+@media(max-width:480px){
+    body{
+        flex-direction: column;
+        height: 120vh;
+    }
+    #welcome{
+        height: 10vh;
+        width: 100vw;
+        margin-top: 20px;
+        margin-bottom: 10px;
+    }
+    #welcome h2{
+        font-size: 35px;
+        margin-top: 5px;
+        margin-left: 10px;
+    }
+    #welcome h4{
+        font-size: 15px;
+        margin-top: 0;
+        margin-left: 10px;
+    }
+    #main{
+        width: 90vw;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 2px;
+    }
+    
+}
+@media(min-width:580px){
+    #welcome{
+        width: 40vw;
+    }
+    #welcome h2{
+        margin-left: 10px;
+    }
+    #welcome h4{
+        margin-left: 10px;
+        font-size: 20px;
+    }
+    #main{
+        margin-left: 0;
+    }
+}
+@media(min-width:1023px){
+    #welcome{
+        width: 53vw;
+    }
+    #welcome h2{
+        margin-left: 12vw;
+    }
+    #welcome h4{
+        margin-left: 12vw;
+        font-size: 35px;
+    }
+    #main{
+        margin-left: 50px;
+    }
+}

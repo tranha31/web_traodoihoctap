@@ -1,0 +1,585 @@
+*{
+	margin: 0;
+	padding: 0;
+	font-family: 'arial', sans-serif;
+	box-sizing: border-box;
+}
+
+::-webkit-scrollbar {
+    width: 12px;
+    height: 12px;
+}
+::-webkit-scrollbar-track {
+    border-radius: 10px;
+    width: 2px;
+    border: 1px dotted #FFD7D8;
+}
+::-webkit-scrollbar-thumb {
+    background: #FFD7D8;
+    border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #F5ada3;
+}
+
+section{
+	position: relative;
+	width: 100%;
+    display: flex;
+    flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+
+
+section .main {
+    display: flex;
+    top: 0px;
+	width: 100%;
+    height: auto;
+    padding: 20px;
+    background-color: #fff;
+    border: 3px solid #f5a4a3;
+	justify-content: center;
+	position: relative;
+}
+
+section .main #left {
+    width: 100%;
+    margin: auto;
+    
+}
+
+section .main #right {
+    width: 350px;
+    border: 1px solid  #f5a4a3;
+    border-radius: 3px;
+    margin: 0 auto 0 10px;
+    height: fit-content;
+    display: none;
+}
+
+section .main .middle {
+    width: 100%;
+    border: 1px solid  #f5a4a3;
+    border-radius: 3px;
+}
+
+
+section .main .notification .modalWindow{
+    border: 2px dotted black; 
+    border-radius: 7px;
+    background-color: #0C9;
+    height: fit-content;
+    max-width: 280px;
+    max-height: 300px;
+    width: fit-content;
+    padding: 10px;
+    position:fixed;
+	bottom:90px;
+	right:90px;
+    overflow: scroll;
+}
+
+section .main .notification .modalWindow .modal-each{
+    background: white;
+    padding: 5px;
+    margin: 5px;
+    border-radius: 7px;
+    display: block;
+}
+
+
+section .main .notification .modalWindow .modal-each p{
+    margin: 1px;
+    padding: 1px;
+}
+
+section .main .notification .down {
+	position:fixed;
+	width:60px;
+	height:60px;
+	bottom:60px;
+	right:40px;
+	background-color:#0C9;
+	color:#FFF;
+	border-radius:50px;
+    border: 1px solid black;
+	text-align:center;
+	box-shadow: 2px 2px 3px #999;
+}
+
+section .main .notification .down img {
+	height: 60px;
+    width: 60px;
+}
+
+section .main .notification .down .my-float{
+    margin-top: 8px;
+}
+section .main .notification .down button{
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+section .main .up {
+    border-radius: 3px;
+    background-color: #FFD7D8;
+    padding: 10px;
+    text-align: center;
+    position: relative;
+    margin-bottom: 5px;
+}
+
+section .main .up:hover {
+    background-color: #f5a4a3;
+    text-decoration: underline;
+}
+
+section .main .title .name h2 {
+    width: 100%;
+    padding: 10px;
+    color: black;
+    text-align: left;
+}
+section .main .title{
+    background-color: #FFD7D8;
+}
+
+section .main .title .moreinfo h5 {
+    width: 100%;
+    padding: 10px;
+    color: rgb(145, 131, 131);
+    text-align: left;
+    border-bottom: 2px dotted #f5a4a3;
+}
+
+section .main .body .content p {
+    padding: 10px 40px;
+    position: relative;
+}
+
+
+section .main .body .source {
+    position: relative;
+    width: 80%;
+    margin: auto;
+    margin-bottom: 10px;
+    padding: 15px;
+    border-radius: 1%;
+    height: auto;
+    max-height: 400px;
+    border: 1px dotted  #f5a4a3;
+    background-color: aliceblue;
+    overflow: scroll;
+}
+
+section .main .body .interaction {
+    position: relative;
+    width: 80%;
+    margin: auto;
+    margin-bottom: 10px;
+    border-radius: 3px;
+    border: 1px dotted  #f5a4a3;
+    background-color: aliceblue;  
+    padding: 8px;
+}
+
+section .main .body .interaction .heart {
+    position: relative;
+}
+
+section .main .body .interaction .heart li {
+    list-style-type: none;
+    float: left;
+}
+
+section .main .body .interaction .heart li img {
+    height: 20px;
+    width: 20px;
+    margin-right: 10px;
+}
+
+section .main .body .interaction .cmt_share {
+    position: relative;
+    overflow: auto; 
+}
+section .main .body .interaction .cmt_share li {
+    list-style-type: none;
+    float: right;
+    margin-left: 20px;
+}
+
+
+
+
+
+
+section .main .body .react {
+    position: relative;
+    height: auto;
+    width: 80%;
+    margin: auto;
+    margin-bottom: 10px;
+    border-top: 1px dotted #f5a4a3; 
+    border-bottom: 1px dotted #f5a4a3;
+    padding: 8px; 
+    overflow: auto;
+    display:flex;
+    flex-direction: row;
+    justify-content: center;
+    justify-items: center;
+}
+
+section .main .body .react li {
+    list-style-type: none;
+    float: left;
+    cursor: pointer;
+}
+
+section .main .body .react img {
+    height: 20px;
+    width: 20px;
+    margin-right: 10px;
+}
+
+section .main .body .react input[type=image]{
+    height: 20px;
+    width: 20px;
+    margin: auto;
+    display: inline-block;
+    vertical-align: top
+}
+
+section .main .body .react button{
+    border: none;
+    background: none;
+    display: none;
+    position:relative;
+    margin-bottom: 3px;
+}
+
+section .main .body .react .react_cmt p {
+    display: none;
+}
+
+section .main .body .react button:hover{
+    cursor: pointer;
+}
+
+section .main .body .react  p {
+    margin: auto;
+    font-size: 16px;
+}
+
+section .main .body .react .react_like, .react_cmt, .react_share {
+    width: 30%;
+    height: auto;
+    overflow: auto;
+    margin: 0px 3px;
+    padding: 3px;
+    display: inline-flex;
+    flex-direction: row;
+    justify-items: center;
+    justify-content: center;
+    border: 1px dotted black;
+}
+
+section .main .body .react .react_like:hover {
+    background-color: #f8bbba;
+    border: 1px solid #f8bbba;
+    border-radius: 3%;
+}
+
+section .main .body .react .react_cmt:hover {
+    background-color: #f8bbba;
+    border: 1px solid #f8bbba;
+    border-radius: 3%;
+}
+
+
+section .main .body .react .react_share:hover {
+    background-color: #f8bbba;
+    border: 1px solid #f8bbba;
+    border-radius: 3%;
+}
+
+
+
+
+
+
+
+
+section .main .comment {
+    position: relative;
+    width: 80%;
+    height: auto;
+    margin: auto;
+    margin-bottom: 15px;
+    border: 1px dotted #f5a4a3;
+    border-radius: 3px;
+}
+
+section .main .comment .previous_cmt {
+    background-color: #FFD7D8;
+    margin: 1px;
+    padding: 3px;
+    border-radius: 3px;
+    display: flex;
+}
+
+section .main .comment .previous_cmt a {
+    display: inline;
+    border-radius: 5px;
+    text-decoration: none;
+    text-align: center;
+    background-color: #00748b;
+    color: white;
+    padding: 8px;
+    margin: 5px;
+}
+
+section .main .comment .previous_cmt a:hover {
+    text-decoration: underline;
+    background-color: #052d35;
+}
+
+section .main .comment .someone {
+    border: 1px dotted #f5a4a3; 
+    margin: 3px;
+    border-radius: 3px;
+    overflow: scroll;
+    height: auto;
+    max-height: 700px;
+}
+
+section .main .comment .username {
+    overflow: auto;
+    margin: 3px 3px 10px;
+    padding: 3px;
+    display: flex;
+    flex-direction: row;
+    background-color: #FFD7D8;
+    border-radius: 3px;
+}
+
+section .main .comment li {
+    list-style-type: none;
+    margin: 10px;  
+    display: flex;
+    align-items: center
+}
+
+section .main .comment img {
+    height: 30px;
+    width: 30px;
+    margin-right: 20px; 
+}
+
+section .main .comment .cmt{
+    position: relative;
+    width: 90%;
+    margin: auto;
+    margin-bottom: 10px;
+    border-radius: 3px;
+    height: auto;
+    padding: 10px;
+    max-height: 150px;
+    border: 1px dotted  #f5a4a3;
+    background-color: aliceblue;
+    overflow: scroll;
+}
+
+section .main .comment .interact {
+    width: 90%;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+
+section .main .comment .you {
+    border: 1px dotted #f5a4a3; 
+    margin: 3px;
+    height: auto;
+    border-radius: 3px;
+}
+
+section .main .comment .you textarea {
+    width: 90%;
+    height: 80px;
+    padding: 12px 20px;
+    display: block;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-right: auto;
+    margin-left: auto;
+    box-sizing: border-box;
+    border: 1px dotted #f5a4a3;
+    border-radius: 4px;
+    background-color: aliceblue;
+    font-size: 16px;
+    resize: none;
+}
+section .main .comment .you form {
+    padding: 3px;
+    width: 100%;  
+    display: flex;
+}
+
+section .main .comment .you button[type=submit] {
+    padding: 3px;
+    margin: 30px 15px;
+    float: right;
+    background-color: #FFD7D8;
+    cursor: pointer;
+    border: 1px dotted aliceblue;
+    border-radius: 5px;
+}
+
+section .main .comment .you .button:hover {
+    background-color: #f5a4a3;
+}
+
+section .main .ask {
+    border-radius: 3px;
+    background-color: #f5a4a3;
+    padding: 10px;
+    margin: 10px;
+    text-align: center;
+    position: relative;
+    font-size: 1.2vw;
+}
+
+section .main .ask:hover {
+    background-color: #00748b;
+    cursor: pointer;
+    color: white;
+}
+
+section .main .top10 h3 {
+    border-radius: 3px;
+    background-color: #00748b;
+    padding: 10px;
+    margin: 30px 10px 10px;
+    position: relative;
+    text-align: center;
+    color: white;
+}
+
+
+section .main .top10 .top10_data {
+    border-radius: 3px;
+    border: 1px dotted #FFD7D8;
+    background-color: aliceblue;
+    padding: 10px;
+    margin: 10px;
+    position: relative;
+}
+
+section .main .top10 .top10_data p {
+    background-color: #00748b; 
+    border-radius: 3px; 
+    color: white; 
+    width:auto; 
+    padding: 3px;
+    margin: 3px 5px auto auto;
+    display: inline-block;
+}
+
+section .main .top10 .top10_data a {
+    text-decoration: none;
+    display: inline-block;
+    margin: 4px;
+    padding: 2px;
+}
+
+section .main .top10 .top10_data a:hover {
+    text-decoration: underline;
+}
+
+.back_top {
+    background-color : #31B0D5;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 4px;
+    border-color: #46b8da;
+}
+
+@media (max-width: 480px){
+    #img_u{
+        margin-right: 0;
+        width: 15px;
+        height: 15px;
+    }
+    .username a{
+        font-size: 10px;
+        margin-left: 0;
+        margin-right: 0;
+    }
+    .username p{
+        font-size: 8px;
+        
+    }
+}
+
+@media (min-width: 600px){
+    section .header .logo{
+        margin-left: 5vw;
+    }
+    section .main{
+        border: none;
+    }
+}
+
+@media (min-width: 1000px){
+    section .header{
+        height: 70px;
+    }
+
+    section .header .search_area{
+        margin-left: 30px;
+        margin-top: 12px;
+    }
+
+    section .header .login button{
+        display: flex;
+        margin-right: 5vw;
+    }
+
+    section .header .account {
+        margin-right: 10vw;
+    }
+
+    section .footer p{
+        margin-left: 10vw;
+    }
+
+    section .footer button{
+        margin-right: 10vw;
+    }
+
+
+    section .main #left {
+        width: 60%;
+        margin-left: 60px;
+    }
+
+    section .main #right {
+        display:block;
+    }
+
+    section .main .up {
+        display: none;
+    }
+
+    section .main .body .react button{
+        display: inline-flex;
+    }
+    section .main .body .react .react_cmt p{
+        display: contents;
+    }
+    
+}

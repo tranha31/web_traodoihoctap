@@ -1,0 +1,30 @@
+#main{
+    height: 800px;
+}
+.login{
+    height: 75%;
+}
+.g-recaptcha{
+    height: 100px;
+    margin-top: 25px;
+    margin-left: auto;
+    margin-right: auto;
+}
+input{
+    margin-bottom: 20px;
+}
+span{
+    color: red;
+}
+#note{
+    font-size: 13px;
+    opacity: 0.5;
+    font-family: arial;
+    margin-left: auto;
+    margin-right: auto;
+}
+@media(max-width:480px){
+    #main{
+        margin-left: 15px;
+    }
+}
