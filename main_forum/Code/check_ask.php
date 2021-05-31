@@ -156,7 +156,30 @@
             $sql = "Insert into account_activity(account1, activity, account2, linkpost, shortcontent, datetime) values ('$account','post question','$account','http://localhost/web_traodoihoctap/articles/main2.php?id=$id1','$title','$pb_date')";
             mysqli_query($conn, $sql, null);
         
-        
+            if($tag1 != ""){
+                $sql = "select * from tags where tag = '$tag1'";
+                $result = mysqli_query($conn, $sql, null);
+                if(mysqli_num_rows($result)==0){
+                    $sql = "insert into tags(tag) values('$tag1')";
+                    mysqli_query($conn, $sql, null);
+                }
+            }
+            if($tag2 != ""){
+                $sql = "select * from tags where tag = '$tag2'";
+                $result = mysqli_query($conn, $sql, null);
+                if(mysqli_num_rows($result)==0){
+                    $sql = "insert into tags(tag) values('$tag2')";
+                    mysqli_query($conn, $sql, null);
+                }
+            }
+            if($tag3 != ""){
+                $sql = "select * from tags where tag = '$tag3'";
+                $result = mysqli_query($conn, $sql, null);
+                if(mysqli_num_rows($result)==0){
+                    $sql = "insert into tags(tag) values('$tag3')";
+                    mysqli_query($conn, $sql, null);
+                }
+            }
             ?>
                 <div class ="center popup">
                     <img src="../Picture/check.png">
