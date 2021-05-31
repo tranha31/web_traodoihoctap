@@ -1,4 +1,4 @@
-<?php 
+<?php
     $account = "";
     $title = "";
     $content = "";
@@ -6,6 +6,9 @@
     $vote = "";
     $publish_date = "";
     $status = "";
+    $tag1 = "";
+    $tag2 = "";
+    $tag3 = "";
     $checkArticle = "";
     $checkLike = false;
 
@@ -21,6 +24,9 @@
         $content_code = $data['content_code'];
         $publish_date = $data['publish_date'];
         $status = $data['status'];
+        $tag1 = $data['tag1'];
+        $tag2 = $data['tag2'];
+        $tag3 = $data['tag3'];
     }
     if($content_code == "") $content_code = "Empty.";
     else{
@@ -75,12 +81,21 @@
             $time = date("Y-m-d");
             $sqlAddLikeAction = "insert into actions values ('$loginUser','likes','$id','$time', 0);";
             $con->query($sqlAddLikeAction);
+             
+            $sql1 = "update articles set vote = vote+1 where id = $id";
+            $con->query($sql1);
+            $uu = $_SESSION['account'];
+            $sql2 = "update account_infor set numberofheart = numberofheart+1 where account ='$uu'";
+            $con->query($sql2);
         } else {
             $sqlDecLike = 'delete from likes where acc = "'.$loginUser.'" and id_article = "'.$id.'";';
             $con->query($sqlDecLike);
             $checkLike = false;
             $sqlDelLikeAction = 'delete from actions where account = "'.$loginUser.'" and id = "'.$id.'";';
             $con->query($sqlDelLikeAction);
+             
+            $sql1 = "update articles set vote = vote-1 where id = $id";
+            $con->query($sql1);
         }   
     }
 
@@ -112,6 +127,9 @@
         if ($checkCmt == false) {
             $sqlIncLikeCmt = 'insert into likes_cmt values ("'.$loginUser.'","'.$cmt_like.'");';
             $con->query($sqlIncLikeCmt);
+            $uu = $_SESSION['account'];
+            $sql2 = "update account_infor set numberofheart = numberofheart+1 where account = '$uu'";
+            $con->query($sql2);
         } else {
             $sqlDecLikeCmt = 'delete from likes_cmt where acc = "'.$loginUser.'" and id_cmt = "'.$cmt_like.'";';
             $con->query($sqlDecLikeCmt);
@@ -148,3 +166,17 @@
             $con->query($sqlDelAdminCheck);
         }   
     }
+
+     //edit comment
+     $editCommentContent = $_POST['myEditComment'] ?? null;
+     $editCommentId = $_POST['myEditCommentId'] ?? null;
+     if($editCommentContent != null){
+         $editCommentContent = addslashes($editCommentContent);
+         $editCommentContent = htmlspecialchars(htmlentities($editCommentContent));
+         $timeEdit = date("Y-m-d");
+         $sqlEditComment = 'update comments set content = "'.$editCommentContent.'", time = "'.$timeEdit.'" where id_cmt = '.$editCommentId;
+         $con->query($sqlEditComment);
+     }
+ 
+ ?>
+ 

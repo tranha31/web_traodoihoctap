@@ -17,6 +17,7 @@
     width: 7vw;
     margin-left: auto;
     margin-top: 25px;
+    
 }
 .link1 p{
     font-size: 15px;
@@ -38,6 +39,7 @@
     height: 50px;
     display: flex;
     align-items: center;
+    
 }
 #home:hover{
     cursor: pointer;
@@ -91,7 +93,9 @@
 .content{
     width: 50vw;
     height: 100%;
-    
+    border-left: 3px solid #e0d7d7;
+    position: relative;
+    z-index: 19;
 }
 .title{
     width: 100%;
@@ -128,6 +132,7 @@
     background-color: blue;
     cursor: pointer;
 }
+
 .display{
     width: 100%;
     height: 50px;
@@ -303,7 +308,10 @@
     text-overflow: ellipsis;
 }
 
+.linkP{
+    margin-bottom: 15px;
 
+}
 .notification .modalWindow{
     border: 2px dotted black; 
     border-radius: 7px;
@@ -317,6 +325,7 @@
 	bottom:90px;
 	right:90px;
     overflow: scroll;
+    z-index: 22;
 }
 
 .notification .modalWindow .modal-each{
@@ -345,6 +354,7 @@
     border: 1px solid black;
 	text-align:center;
 	box-shadow: 2px 2px 3px #999;
+    z-index: 55;
 }
 
 .notification .down img {
@@ -355,12 +365,27 @@
 .notification .down .my-float{
     margin-top: 8px;
 }
+
 .notification .down button{
     background: none;
     border: none;
     cursor: pointer;
 }
+.tag{
+    margin-left: 2px;
+    background-color:#ffefd5;
+    border: none;
+    height: 20px;
+    padding-left: 5px;
+    padding-right: 5px;
+    margin-top: 10px;
+}
 
+#tag form input{
+    height: 50px;
+    border-color: #e0d7d7
+
+}
 @media (max-width:499px){
     
     .top{
@@ -453,15 +478,19 @@
         z-index: 20;
         position: relative;
     }
-    
+    .tag{
+        font-size: 8px;
+    }
+    #tag form input{
+        height: 25px;
+    }
 }
 @media (min-width: 500px){
     .main1{
-        height: 150vmax;
+        height: auto;
+
     }
-    .vertical{
-        height: 200vmax;
-    }
+    
     .Link{
         z-index: 18;
     }
@@ -503,7 +532,10 @@
     }
     .top_header p{
         margin-left: 5px;
-        font-size: 20px;
+        font-size: 15px;
+    }
+    .top_header img{
+        width: 30px;
     }
     .vote p{
         font-size: 10px;
@@ -538,9 +570,17 @@
     }
     
 }
+@media (min-width: 640px){
+    .top_header p{
+        font-size: 20px;
+    }
+    .top_header img{
+        width: 65px;
+    }
+}
 @media (min-width: 1020px){
     .main1{
-        height: 150vmax;
+        height: auto;
     }
     .vertical{
         height: 180vmax;
@@ -613,7 +653,7 @@
 }
 @media (min-width:1200px){
     .main1{
-        height: 150vmax;
+        height: auto;
     }
     .vertical{
         height: 150vmax;

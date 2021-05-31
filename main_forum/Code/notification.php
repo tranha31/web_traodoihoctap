@@ -55,6 +55,7 @@
             div2.id = "modalWindow";
             div2.className = "modalWindow";
             div2.setAttribute("hidden", true);
+            div2.style.zIndex = "20";
             ids = xhttp.responseXML.getElementsByTagName("id");
             accounts = xhttp.responseXML.getElementsByTagName("account");
             acts = xhttp.responseXML.getElementsByTagName("act");

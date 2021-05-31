@@ -13,8 +13,29 @@ if(isset($_POST["login"])){
         if(mysqli_num_rows($result)>0){
             $row = mysqli_fetch_assoc($result);
             if($row['verified'] == 1){
-                $_SESSION["account"] = $row["account"];
-                echo "<script>window.location.assign(\"../main_forum/Code/home.php\")</script>";
+                if($row['ban'] == 0){
+                    $_SESSION["account"] = $row["account"];
+                    echo "<script>window.location.assign(\"../main_forum/Code/home.php\")</script>";
+                }
+                else{
+                    $today = date("Y-m-d");
+                    $ban_d = $row["dateofban"];
+                    $today = strtotime($today);
+                    $ban_d = strtotime($ban_d);
+                    $datediff = abs($today - $ban_d);
+                    $due = floor($datediff / (60*60*24));
+                    if($due > 10){
+                        $_SESSION["account"] = $row["account"];
+                        $sql = "update account_infor set ban = 0 where account = '$u'";
+                        mysqli_query($conn, $sql, null);
+                        echo "<script>window.location.assign(\"../main_forum/Code/home.php\")</script>";
+                    }
+                    else{
+                        echo "<script>alert(\"Your account is banned! Please try again!\");</script>";
+                    }
+                    
+                }
+                
             }
             else{
                 echo "<script>alert(\"Your account is not verified! Please try again!\");</script>";

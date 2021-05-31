@@ -33,10 +33,7 @@ else{
                 <form class="search_area" method="post" action="search.php">
                     <input type="text" name="Search" class="search" id="S" placeholder="Filter questions">
                     <img src="https://drive.google.com/uc?id=1ad0H9BfqS_MXpJEyhwymLbsO-gioXzE7">
-                    <div id="search_ajax">
-                        <div id="list">
-                        </div>
-                    </div>
+                    
                 </form>
                 
             </div>
@@ -59,7 +56,10 @@ else{
             
         </div>
     </section>
-    
+    <div id="search_ajax">
+                        <div id="list">
+                        </div>
+                    </div>
     <section>
         <div class = "main">
 
@@ -128,11 +128,34 @@ else{
                 </div>
                 <div class="selection_button">
                     <button>
-                        <a href="#activity_history">Activity history</a>
+                        <a href="#activity_history" class="link">Activity history</a>
                     </button>
                     <button>
-                        <a href="#personal_information">Personal information</a>
+                        <a href="#personal_information" class="link">Personal information</a>
                     </button>
+                    <?php
+                        if($level == 0){
+                            if(isset($_SESSION['account'])){
+                                $conn = mysqli_connect("localhost", "root","", "projectweb20202");
+                                $account = $_SESSION['account'];
+                                $sql = "SELECT * FROM account_infor WHERE level = 1 AND account = '$account'";
+                                $result = mysqli_query($conn, $sql, null);
+                                if(mysqli_num_rows($result)>0){
+                                    $sql = "select * from account_infor where level = 0 and account = '$ac' and ban = 0";
+                                    $result1 = mysqli_query($conn, $sql, null);
+                                    if(mysqli_num_rows($result1)>0){
+                                        echo "<button onclick=\"Ban()\">Ban account</button>";
+                                        echo "<button onclick=\"SetAdmin()\">Set admin</button>";
+                                    }
+                                    $sql = "select * from account_infor where level = 0 and account = '$ac' and ban = 1";
+                                    $result2 = mysqli_query($conn, $sql, null);
+                                    if(mysqli_num_rows($result2)>0){
+                                        echo "<button onclick=\"UnBan()\">Unban account</button>";
+                                    }
+                                }
+                            }
+                        }
+                    ?>
                 </div>
 
             </div>
@@ -147,7 +170,7 @@ else{
                             
                             if($ac == $_SESSION['account'])
                             ?>
-                            <button onclick = "showAdminActivity()" style="position: relative; display:block; z-index:8;">Ports are moderated</button>
+                            <button onclick = "showAdminActivity()" style="position: relative; display:block; z-index:8;">Admin Activities</button>
                             <?php
                         }
                         }
@@ -496,7 +519,15 @@ else{
 
     </script>
 <script type="text/javascript">
-    
+        function Ban(){
+            window.location.assign("Active.php?a=<?php echo $ac;?>&s=1");
+        }
+        function UnBan(){
+            window.location.assign("Active.php?a=<?php echo $ac;?>&s=2");
+        }
+        function SetAdmin(){
+            window.location.assign("Active.php?a=<?php echo $ac;?>&s=3");
+        }
         function Login(){
             window.location.assign("../login/login.php");
         }

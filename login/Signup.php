@@ -83,7 +83,7 @@ if(isset($_POST['submit'])){
                     $body = $htmlStr;
                     $d = date('Y-m-d');
                     if( mail($recipient_email, $subject, $body, $headers) ){
-                        $sql = "insert into account_infor values ('$ac','$d',0,0,0,'$p','$verificationCode',0)";
+                        $sql = "insert into account_infor values ('$ac','$d',0,0,'$p','$verificationCode',0,0,'','','',0)";
                         mysqli_query($conn, $sql, null);
                         
                         $sql = "insert into personal_infor values ('$ac','','','','','','','','','','','','','$em','')";
@@ -157,7 +157,7 @@ function checkPass($pass){
         <h2>UKnow</h2>
         <h4>UKnow helps you learn and connect with people</h4>
     </div>
-    <div id="main">
+    <div id="main" >
         <img id="ava" src="picture/avatar.png">
         <h1>Signup</h1>
         <form method="post" action="Signup.php" class="login">

@@ -146,6 +146,7 @@ section .main .title .name h2 {
 }
 section .main .title{
     background-color: #FFD7D8;
+    border-bottom: 2px dotted #f5a4a3;
 }
 
 section .main .title .moreinfo h5 {
@@ -153,15 +154,21 @@ section .main .title .moreinfo h5 {
     padding: 10px;
     color: rgb(145, 131, 131);
     text-align: left;
-    border-bottom: 2px dotted #f5a4a3;
+}
+
+section .main .title .moreinfo button{
+    margin-left: 8px;
+    background-color: aliceblue;
+    border: none;
+    height: 20px;
+    padding-left: 5px;
+    padding-right: 5px;
 }
 
 section .main .body .content p {
     padding: 10px 40px;
     position: relative;
 }
-
-
 section .main .body .source {
     position: relative;
     width: 80%;
@@ -507,7 +514,14 @@ section .main .top10 .top10_data a:hover {
     border-radius: 4px;
     border-color: #46b8da;
 }
-
+.name img{
+    width: 30px;
+    margin-left: 15px;
+    margin-top: 5px;
+}
+.name img:hover{
+    cursor: pointer;
+}
 @media (max-width: 480px){
     #img_u{
         margin-right: 0;

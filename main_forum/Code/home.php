@@ -20,10 +20,7 @@
                 <form class="search_area" method="post" action="search.php">
                     <input type="text" name="Search" class="search" id="S" placeholder="Filter questions">
                     <img src="https://drive.google.com/uc?id=1ad0H9BfqS_MXpJEyhwymLbsO-gioXzE7">
-                    <div id="search_ajax">
-                        <div id="list">
-                        </div>
-                    </div>
+                    
                 </form>
                 
             </div>
@@ -48,7 +45,10 @@
         
         
     </section>
-    
+    <div id="search_ajax">
+                        <div id="list">
+                        </div>
+                    </div>
     <div class = "main1">
         <?php 
     
@@ -146,7 +146,8 @@ ORDER BY articles.publish_date DESC limit $start,$no_per_page";
                 </div>
                  
             </div>
-            <div class="vertical"></div>
+        
+            
             <div class="content">
                 
                 <div class="title">
@@ -180,7 +181,16 @@ ORDER BY articles.publish_date DESC limit $start,$no_per_page";
                     ?>
                 <div class="content_qs">
                     <div class="count">
-                        <p><?php echo $row['vote']; ?></p>
+                        <?php
+                        $sqlLikes = "select count(*) from likes where id_article = ".$id;
+                        $result = $conn->query($sqlLikes);
+                        if(!empty($result) && $result->num_rows > 0){
+                            $vote = $result->fetch_assoc()['count(*)'];
+                        } else {
+                            $vote = 0;
+                        }      
+                        ?>
+                        <p><?php echo $vote; ?></p>
                         <p>votes</p>
                         <p><?php echo $cmts; ?></p>
                         <p>answers</p>
@@ -193,6 +203,30 @@ ORDER BY articles.publish_date DESC limit $start,$no_per_page";
                     </div>
                     
                 </div>
+                <?php
+                $tag1 = $row['tag1'];
+                $tag2 = $row['tag2'];
+                $tag3 = $row['tag3'];
+                if($tag1 && $tag2 && $tag3){
+                    ?>
+                    <button class="tag"><a href="tag.php?tag=<?php echo $tag1;?>"><?php echo $tag1; ?></a></button>
+                    <button class="tag"><a href="tag.php?tag=<?php echo $tag2;?>"><?php echo $tag2; ?></a></button>
+                    <button class="tag"><a href="tag.php?tag=<?php echo $tag3;?>"><?php echo $tag3; ?></a></button>
+                    <?php
+                }
+                else if($tag1 && $tag2 && !$tag3){
+                    ?>
+                    <button class="tag"><a href="tag.php?tag=<?php echo $tag1;?>"><?php echo $tag1; ?></a></button>
+                    <button class="tag"><a href="tag.php?tag=<?php echo $tag2;?>"><?php echo $tag2; ?></a></button>
+                    <?php
+                }
+                else if($tag1 && !$tag2 && !$tag3){
+                    ?>
+                    <button class="tag"><a href="tag.php?tag=<?php echo $tag1;?>"><?php echo $tag1; ?></a></button>
+                    <?php
+                }    
+                
+                ?>
                 <div class="questioner">
                     <img src="<?php echo "../Picture/user".$ava.".png"; ?>">
                     <a href="../../header_footer/ValidUser.php?account=<?php echo $row['account']; ?>"><?php echo $row['account']; ?></a>
@@ -356,7 +390,7 @@ ORDER BY articles.publish_date DESC limit $start,$no_per_page";
                 
             <div class="top_ask_qs">
                 <div class="top_header">
-                    <p>Top Users</p>
+                    <p>Top Members</p>
                     <img src="https://media.giphy.com/media/oVouQovpspyNqO3mhW/source.gif">
                 </div>
                 <div class="list_top_qs">
@@ -368,8 +402,7 @@ ORDER BY articles.publish_date DESC limit $start,$no_per_page";
                             ?>
                     <div class="content_t_qs">
                         <div class="vote">
-                            <p><?php echo $row["numberofheart"]?></p>
-                            <p>votes</p>
+                           
                         </div>
                         <div class="content2">
                             <a href="../../header_footer/ValidUser.php?account=<?php echo $row['account']; ?>"><?php echo $row['account']; ?></a>
@@ -562,6 +595,7 @@ else if($status == 2){
                     div.style.display = "flex";
                     ul.style.display = "flex";
                     ul.style.flexDirection = "column";
+                    
                     console.log(ajaxRequest.responseXML);
                     names=ajaxRequest.responseXML.getElementsByTagName("name");
                     ids = ajaxRequest.responseXML.getElementsByTagName("id");

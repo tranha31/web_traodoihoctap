@@ -1,4 +1,12 @@
-<?php session_start(); ?>
+<?php 
+session_start(); 
+if(isset($_POST['tag'])){
+    $t = $_POST['tag'];
+}
+else{
+    $t = $_GET['tag'];
+}
+?>
 <html>
 <head>
     <title>Web Trao đổi học tập</title>
@@ -6,8 +14,9 @@
     <meta name = "viewport" content = "width = device-width, initial-scale = 1">
     <link rel = "stylesheet" href = "header_footer.css">
     <link rel = "stylesheet" href = "home.css">
+    <link rel = "stylesheet" href = "tag.css">
     
-    <script language="javascript" src="index.js"></script>
+   
 </head>
 <body>
     <section>
@@ -80,36 +89,35 @@
             else{
                 $artical;
                 if($status == 0){
-                    $sql = "SELECT COUNT(articles.id) AS total FROM articles";
+                    $sql = "SELECT COUNT(articles.id) AS total FROM articles where (tag1 like '%$t%') or (tag2 like '%$t%') or (tag3 like '%$t%') ";
                     $result = mysqli_query($conn, $sql, null);
                     $row =  mysqli_fetch_assoc($result);
                     $total_rows = $row["total"];
                     $total_pages = ceil($total_rows / $no_per_page);
                     
-                    $sql = "SELECT * FROM articles ORDER BY articles.publish_date DESC limit $start,$no_per_page";
+                    $sql = "SELECT * FROM articles where (tag1 like '%$t%') or (tag2 like '%$t%') or (tag3 like '%$t%') ORDER BY articles.publish_date DESC limit $start,$no_per_page";
                     $artical = mysqli_query($conn, $sql, null);
                    
                 }
                 else if($status == 1){
-                    $sql = "SELECT COUNT(articles.id) AS total FROM articles WHERE articles.vote = 0";
+                    $sql = "SELECT COUNT(articles.id) AS total FROM articles WHERE articles.vote = 0 and ((tag1 like '%$t%') or (tag2 like '%$t%') or (tag3 like '%$t%'))";
                     $result = mysqli_query($conn, $sql, null);
                     $row =  mysqli_fetch_assoc($result);
                     $total_rows = $row["total"];
                     $total_pages = ceil($total_rows / $no_per_page);
                     
-                    $sql = "SELECT * FROM articles WHERE articles.vote = 0 ORDER BY articles.publish_date DESC limit $start,$no_per_page";
+                    $sql = "SELECT * FROM articles WHERE articles.vote = 0 and ((tag1 like '%$t%') or (tag2 like '%$t%') or (tag3 like '%$t%')) ORDER BY articles.publish_date DESC limit $start,$no_per_page";
                     $artical = mysqli_query($conn, $sql, null);
                 }
                 else if($status == 2){
                     $sql = "SELECT COUNT(articles.id) AS total FROM articles 
-WHERE articles.id not in (SELECT comments.id FROM comments)";
+WHERE articles.id not in (SELECT comments.id FROM comments) and ((tag1 like '%$t%') or (tag2 like '%$t%') or (tag3 like '%$t%'))";
                     $result = mysqli_query($conn, $sql, null);
                     $row =  mysqli_fetch_assoc($result);
                     $total_rows = $row["total"];
                     $total_pages = ceil($total_rows / $no_per_page);
                     
-                    $sql = "SELECT * FROM articles WHERE articles.id not in (SELECT comments.id FROM comments)
-ORDER BY articles.publish_date DESC limit $start,$no_per_page";
+                    $sql = "SELECT * FROM articles WHERE articles.id not in (SELECT comments.id FROM comments) and ((tag1 like '%$t%') or (tag2 like '%$t%') or (tag3 like '%$t%')) ORDER BY articles.publish_date DESC limit $start,$no_per_page";
                     $artical = mysqli_query($conn, $sql, null);
                 }
                 
@@ -157,14 +165,25 @@ ORDER BY articles.publish_date DESC limit $start,$no_per_page";
                 </div>
                 <div class="display">
                     <p><?php echo $total_rows; ?> questions</p>
+                    
                     <div class="d_button">
                         <button id="All" onclick="All()">All</button>
                         <button id="Unvote" onclick="Unvote()">Unvoted</button>
                         <button id="Uncmt" onclick="Uncmt()">Unanswered</button>
                     </div>
+                    
                 </div>
                 </div>
                 <div class="row"></div>
+                <div id="tag">
+                    <form method="post" action="tag.php">
+                        <input id="stag" type="text" name="tag" placeholder="Filter tags">
+                    </form>
+                </div>
+                <div id="ajax_tag">
+                    <div id="List1"></div>
+                </div>
+                
                 <?php
                 if(mysqli_num_rows($artical)>0){
                     
@@ -243,35 +262,35 @@ ORDER BY articles.publish_date DESC limit $start,$no_per_page";
                             ?>
                 <div class="linkP" style="margin-left:15px; margin-top:5px; display:flex;">
                     <?php 
-                    echo "<a style=\"margin-left:5px; margin-right:5px; display:block; position: relative; z-index:7;\" href='forum.php?page=1'>"."First"."</a>";
+                    echo "<a style=\"margin-left:5px; margin-right:5px; display:block; position: relative; z-index:7;\" href='tag.php?page=1&tag=$t'>"."First"."</a>";
                     if($page <= 1){
                             echo "<a style=\"margin-left:5px; margin-right:5px; display:block; position: relative; z-index:7;\"  href=#>Prev</a>";
                     }
                     else{
-                        echo "<a style=\"margin-left:5px; margin-right:5px; display:block; position: relative; z-index:7;\"  href='forum.php?page=".($page-1)."'>"."Prev"."</a>";
+                        echo "<a style=\"margin-left:5px; margin-right:5px; display:block; position: relative; z-index:7;\"  href='tag.php?page=".($page-1)."&tag=$t'>"."Prev"."</a>";
                     }
                     
                     if($total_pages <= 4){    
                         for($i=1; $i<=$total_pages; $i++){
-                            echo "<a style=\"margin-left:5px; margin-right:5px; display:block; position: relative; z-index:7;\"  href='forum.php?page=".$i."'>".$i."</a>";
+                            echo "<a style=\"margin-left:5px; margin-right:5px; display:block; position: relative; z-index:7;\"  href='tag.php?page=".$i."&tag=$t'>".$i."</a>";
                         }
                         
                     }
                     else{
-                        echo "<a style=\"margin-left:5px; margin-right:5px; display:block; position: relative; z-index:7;\" href='forum.php?page=1'>1</a>";
+                        echo "<a style=\"margin-left:5px; margin-right:5px; display:block; position: relative; z-index:7;\" href='tag.php?page=1&tag=$t'>1</a>";
                         echo "<a style=\"margin-left:5px; margin-right:5px; display:block; position: relative; z-index:7;\"  href='forum.php?page=2'>2</a>";
                         echo "...";
-                        echo "<a style=\"margin-left:5px; margin-right:5px; display:block; position: relative; z-index:7;\"  href='forum.php?page=".($total_pages-1)."'>".($total_pages-1)."</a>";
-                        echo "<a style=\"margin-left:5px; margin-right:5px; display:block; position: relative; z-index:7;\"  href='forum.php?page=".$total_pages."'>".$total_pages."</a>";
+                        echo "<a style=\"margin-left:5px; margin-right:5px; display:block; position: relative; z-index:7;\"  href='tag.php?page=".($total_pages-1)."&tag=$t'>".($total_pages-1)."</a>";
+                        echo "<a style=\"margin-left:5px; margin-right:5px; display:block; position: relative; z-index:7;\"  href='tag.php?page=".$total_pages."&tag=$t'>".$total_pages."</a>";
                     }
                     if($page >= $total_pages){
                             echo "<a style=\"margin-left:5px; margin-right:5px; display:block; position: relative; z-index:7;\"  href=#>Next</a>";
                     }
                     else{
-                        echo "<a style=\"margin-left:5px; margin-right:5px; display:block; position: relative; z-index:7;\"  href='forum.php?page=".($page+1)."'>"."Next"."</a>";
+                        echo "<a style=\"margin-left:5px; margin-right:5px; display:block; position: relative; z-index:7;\"  href='tag.php?page=".($page+1)."&tag=$t'>"."Next"."</a>";
                     }
                     
-                    echo "<a style=\"margin-left:5px; margin-right:5px; display:block; position: relative; z-index:7;\"  href='forum.php?page=".$total_pages."'>"."Last"."</a>";
+                    echo "<a style=\"margin-left:5px; margin-right:5px; display:block; position: relative; z-index:7;\"  href='tag.php?page=".$total_pages."&tag=$t'>"."Last"."</a>";
                     ?>
                 </div>
                             <?php
@@ -280,35 +299,35 @@ ORDER BY articles.publish_date DESC limit $start,$no_per_page";
                             ?>
                 <div class="linkP" style="margin-left:15px; margin-top:5px; display:flex;">
                     <?php 
-                    echo "<a style=\"margin-left:5px; margin-right:5px; display:block; position: relative; z-index:7;\"  href='forum.php?page=1&status=uv'>"."First"."</a>";
+                    echo "<a style=\"margin-left:5px; margin-right:5px; display:block; position: relative; z-index:7;\"  href='tag.php?page=1&status=uv&tag=$t'>"."First"."</a>";
                     if($page <= 1){
                             echo "<a style=\"margin-left:5px; margin-right:5px; display:block; position: relative; z-index:7;\"  href=#>Prev</a>";
                     }
                     else{
-                        echo "<a style=\"margin-left:5px; margin-right:5px; display:block; position: relative; z-index:7;\"  href='forum.php?page=".($page-1)."&status=uv'>"."Prev"."</a>";
+                        echo "<a style=\"margin-left:5px; margin-right:5px; display:block; position: relative; z-index:7;\"  href='tag.php?page=".($page-1)."&status=uv&tag=$t'>"."Prev"."</a>";
                     }
                     
                     if($total_pages <= 4){    
                         for($i=1; $i<=$total_pages; $i++){
-                            echo "<a style=\"margin-left:5px; margin-right:5px; display:block; position: relative; z-index:7;\"  href='forum.php?page=".$i."&status=uv'>".$i."</a>";
+                            echo "<a style=\"margin-left:5px; margin-right:5px; display:block; position: relative; z-index:7;\"  href='tag.php?page=".$i."&status=uv&tag=$t'>".$i."</a>";
                         }
                         
                     }
                     else{
-                        echo "<a style=\"margin-left:5px; margin-right:5px; display:block; position: relative; z-index:7;\"  href='forum.php?page=1&status=uv'>1</a>";
-                        echo "<a style=\"margin-left:5px; margin-right:5px; display:block; position: relative; z-index:7;\"  href='forum.php?page=2&status=uv'>2</a>";
+                        echo "<a style=\"margin-left:5px; margin-right:5px; display:block; position: relative; z-index:7;\"  href='tag.php?page=1&status=uv&tag=$t'>1</a>";
+                        echo "<a style=\"margin-left:5px; margin-right:5px; display:block; position: relative; z-index:7;\"  href='tag.php?page=2&status=uv&tag=$t'>2</a>";
                         echo "...";
-                        echo "<a style=\"margin-left:5px; margin-right:5px; display:block; position: relative; z-index:7;\"  href='forum.php?page=".($total_pages-1)."&status=uv'>".($total_pages-1)."</a>";
-                        echo "<a style=\"margin-left:5px; margin-right:5px; display:block; position: relative; z-index:7;\"  href='forum.php?page=".$total_pages."&status=uv'>".$total_pages."</a>";
+                        echo "<a style=\"margin-left:5px; margin-right:5px; display:block; position: relative; z-index:7;\"  href='tag.php?page=".($total_pages-1)."&status=uv&tag=$t'>".($total_pages-1)."</a>";
+                        echo "<a style=\"margin-left:5px; margin-right:5px; display:block; position: relative; z-index:7;\"  href='tag.php?page=".$total_pages."&status=uv&tag=$t'>".$total_pages."</a>";
                     }
                     if($page >= $total_pages){
                             echo "<a style=\"margin-left:5px; margin-right:5px; display:block; position: relative; z-index:7;\"  href=#>Next</a>";
                     }
                     else{
-                        echo "<a style=\"margin-left:5px; margin-right:5px; display:block; position: relative; z-index:7;\"  href='forum.php?page=".($page+1)."&status=uv'>"."Next"."</a>";
+                        echo "<a style=\"margin-left:5px; margin-right:5px; display:block; position: relative; z-index:7;\"  href='tag.php?page=".($page+1)."&status=uv&tag=$t'>"."Next"."</a>";
                     }
                     
-                    echo "<a style=\"margin-left:5px; margin-right:5px; display:block; position: relative; z-index:7;\"  href='forum.php?page=".$total_pages."&status=uv'>"."Last"."</a>";
+                    echo "<a style=\"margin-left:5px; margin-right:5px; display:block; position: relative; z-index:7;\"  href='tag.php?page=".$total_pages."&status=uv&tag=$t'>"."Last"."</a>";
                     ?>
                 </div>
                             <?php
@@ -317,35 +336,35 @@ ORDER BY articles.publish_date DESC limit $start,$no_per_page";
                             ?>
                 <div class="linkP" style="margin-left:15px; margin-top:5px; display:flex;">
                     <?php 
-                    echo "<a style=\"margin-left:5px; margin-right:5px; display:block; position: relative; z-index:7;\"  href='forum.php?page=1&status=ucmt'>"."First"."</a>";
+                    echo "<a style=\"margin-left:5px; margin-right:5px; display:block; position: relative; z-index:7;\"  href='tag.php?page=1&status=ucmt&tag=$t'>"."First"."</a>";
                     if($page <= 1){
                             echo "<a style=\"margin-left:5px; margin-right:5px; display:block; position: relative; z-index:7;\"  href=#>Prev</a>";
                     }
                     else{
-                        echo "<a style=\"margin-left:5px; margin-right:5px; display:block; position: relative; z-index:7;\"  href='forum.php?page=".($page-1)."&status=ucmt'>"."Prev"."</a>";
+                        echo "<a style=\"margin-left:5px; margin-right:5px; display:block; position: relative; z-index:7;\"  href='tag.php?page=".($page-1)."&status=ucmt&tag=$t'>"."Prev"."</a>";
                     }
                     
                     if($total_pages <= 4){    
                         for($i=1; $i<=$total_pages; $i++){
-                            echo "<a style=\"margin-left:5px; margin-right:5px; display:block; position: relative; z-index:7;\"  href='forum.php?page=".$i."&status=ucmt'>".$i."</a>";
+                            echo "<a style=\"margin-left:5px; margin-right:5px; display:block; position: relative; z-index:7;\"  href='tag.php?page=".$i."&status=ucmt&tag=$t'>".$i."</a>";
                         }
                         
                     }
                     else{
-                        echo "<a style=\"margin-left:5px; margin-right:5px; display:block; position: relative; z-index:7;\"  href='forum.php?page=1&status=ucmt'>1</a>";
-                        echo "<a style=\"margin-left:5px; margin-right:5px; display:block; position: relative; z-index:7;\"  href='forum.php?page=2&status=ucmt'>2</a>";
+                        echo "<a style=\"margin-left:5px; margin-right:5px; display:block; position: relative; z-index:7;\"  href='tag.php?page=1&status=ucmt&tag=$t'>1</a>";
+                        echo "<a style=\"margin-left:5px; margin-right:5px; display:block; position: relative; z-index:7;\"  href='tag.php?page=2&status=ucmt&tag=$t'>2</a>";
                         echo "...";
-                        echo "<a style=\"margin-left:5px; margin-right:5px; display:block; position: relative; z-index:7;\"  href='forum.php?page=".($total_pages-1)."&status=ucmt'>".($total_pages-1)."</a>";
-                        echo "<a style=\"margin-left:5px; margin-right:5px; display:block; position: relative; z-index:7;\"  href='forum.php?page=".$total_pages."&status=ucmt'>".$total_pages."</a>";
+                        echo "<a style=\"margin-left:5px; margin-right:5px; display:block; position: relative; z-index:7;\"  href='tag.php?page=".($total_pages-1)."&status=ucmt&tag=$t'>".($total_pages-1)."</a>";
+                        echo "<a style=\"margin-left:5px; margin-right:5px; display:block; position: relative; z-index:7;\"  href='tag.php?page=".$total_pages."&status=ucmt&tag=$t'>".$total_pages."</a>";
                     }
                     if($page >= $total_pages){
                             echo "<a style=\"margin-left:5px; margin-right:5px; display:block; position: relative; z-index:7;\"  href=#>Next</a>";
                     }
                     else{
-                        echo "<a style=\"margin-left:5px; margin-right:5px; display:block; position: relative; z-index:7;\"  href='forum.php?page=".($page+1)."&status=ucmt'>"."Next"."</a>";
+                        echo "<a style=\"margin-left:5px; margin-right:5px; display:block; position: relative; z-index:7;\"  href='tag.php?page=".($page+1)."&status=ucmt&tag=$t'>"."Next"."</a>";
                     }
                     
-                    echo "<a style=\"margin-left:5px; margin-right:5px; display:block; position: relative; z-index:7;\"  href='forum.php?page=".$total_pages."&status=ucmt'>"."Last"."</a>";
+                    echo "<a style=\"margin-left:5px; margin-right:5px; display:block; position: relative; z-index:7;\"  href='tag.php?page=".$total_pages."&status=ucmt&tag=$t'>"."Last"."</a>";
                     ?>
                 </div>
                             <?php
@@ -503,13 +522,13 @@ else if($status == 2){
     }
     
     function All(){
-        window.location.assign("forum.php");
+        window.location.assign("tag.php?tag=<?php echo $t;?>");
     }
     function Unvote(){
-        window.location.assign("forum.php?status=uv");
+        window.location.assign("tag.php?status=uv&tag=<?php echo $t;?>");
     }
     function Uncmt(){
-        window.location.assign("forum.php?status=ucmt");
+        window.location.assign("tag.php?status=ucmt&tag=<?php echo $t;?>");
     }
     
 </script>
@@ -527,6 +546,7 @@ else if($status == 2){
         }
             
     }
+    
         var t;
         function startSearch(){
             if(t) window.clearTimeout(t);
@@ -619,6 +639,75 @@ else if($status == 2){
         var obj = document.getElementById("S");
         obj.onkeydown = startSearch;
 </script>
+<script>
+        var g;
+        function startSearch1(){
+            if(g) window.clearTimeout(g);
+            g = window.setTimeout("liveSearch1()", 200);
+        }
+        
+        
+        function liveSearch1()
+        
+        {
+            ajaxRequest = getXMLHttpRequest();
+            if (!ajaxRequest) alert("Request error!");
+            var myURL = "ajax_tag.php";
+            var query = document.getElementById("stag").value;
+            
+            myURL = myURL + "?query=" + query;
+            console.log(myURL);
+            ajaxRequest.onreadystatechange = ajaxResponse;
+            ajaxRequest.open("GET", myURL);
+            ajaxRequest.send(null);
+        }
+        function ajaxResponse() 
+        {
+            
+            
+            if (ajaxRequest.readyState != 4) 
+            { return; }
+            else {
+                if (ajaxRequest.status == 200) 
+                {
+                   
+                    var i, n, li, t;
+                    var ul = document.getElementById("List1");
+                    var div = document.getElementById("ajax_tag");
+                    div.removeChild(ul); 
+                    ul = document.createElement("div");
+                    ul.id="List1";
+                    div.style.display = "flex";
+                    console.log(ajaxRequest.responseXML);
+                    tags=ajaxRequest.responseXML.getElementsByTagName("tag");
+                    
+                    for (i = 0; i < tags.length; i++)
+                    {
+                        a = document.createElement("a");  
+                        
+                        tag = tags[i].firstChild.nodeValue;
+                        link = "tag.php?tag="+tag;
+                        a.setAttribute('href', link);
+                        
+                        a.innerHTML = tag;
+                        
+                        ul.appendChild(a);
+                    }
+                    if (tags.length == 0) { 
+                        div.style.display = "none";
+                    }
+                    div.appendChild(ul);
+                    
+                }
+                else {
+                    alert("Request failed: " + ajaxRequest.statusText);
+                }
+            }
+        }
+        
+        var obj = document.getElementById("stag");
+        obj.onkeydown = startSearch1;
 
+</script>
 
 </html>

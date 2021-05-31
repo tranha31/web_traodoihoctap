@@ -13,6 +13,20 @@
     if ( window.history.replaceState ) {
         window.history.replaceState( null, null, window.location.href );
     }
+
+    displayEdit = 0;
+    function showFormEditComment(formEditId){
+        if(displayEdit == 0 )
+        {
+            document.getElementById(formEditId).hidden = false;
+            displayEdit = 1;
+        }
+        else
+        {
+            document.getElementById(formEditId).hidden = true;
+            displayEdit = 0;
+        }
+    }
 </script>
 
     <section>
@@ -24,12 +38,44 @@
                 <div class="middle">
                     <div class="title">
                         <div class="name">
+                            <?php
+                            if(isset($_SESSION['account'])){
+                                if($account == $_SESSION['account']){
+                                    echo "<img src=\"../main_forum/Picture/edit.png\" onclick=\"Edit()\">";
+                                }
+                            }
+                            
+                            ?>
+                            
                             <h2>
                                 <?php echo $title ?>
                             </h2>
+                            
                         </div>
                         <div class="moreinfo">
+                            
                             <h5><pre>Asked: <?php echo $publish_date ?></pre></h5>
+                            <h5><a href="../information/account_infor.php?account=<?php echo $account;?>">Asked by: <?php echo $account; ?></a></h5><br>
+                            <?php
+                            if($tag1 && $tag2 && $tag3){
+                                ?>
+                                <button><a href="../main_forum/Code/tag.php?tag=<?php echo $tag1;?>"><?php echo $tag1; ?></a></button>
+                                <button><a href="../main_forum/Code/tag.php?tag=<?php echo $tag2;?>"><?php echo $tag2; ?></a></button>
+                                <button><a href="../main_forum/Code/tag.php?tag=<?php echo $tag3;?>"><?php echo $tag3; ?></a></button>
+                                <?php
+                            }
+                            else if($tag1 && $tag2 && !$tag3){
+                                ?>
+                                <button><a href="../main_forum/Code/tag.php?tag=<?php echo $tag1;?>"><?php echo $tag1; ?></a></button>
+                                <button><a href="../main_forum/Code/tag.php?tag=<?php echo $tag2;?>"><?php echo $tag2; ?></a></button>
+                                <?php
+                            }
+                            else if($tag1 && !$tag2 && !$tag3){
+                                ?>
+                                <button><a href="../main_forum/Code/tag.php?tag=<?php echo $tag1;?>"><?php echo $tag1; ?></a></button>
+                                <?php
+                            }    
+                            ?>
                         </div>
                     </div>
                     <div class="body">
@@ -44,6 +90,7 @@
                         <div class="source">
                             <pre><code><?php echo $content_code ?></code></pre>
                         </div>
+                        
                         <div class="interaction">
                             <div class="heart">
                                 <li><img src="https://drive.google.com/uc?id=1n90up3uN4-Xo51Q4-8ShMx4a7G6dRay4"></li>
@@ -172,7 +219,7 @@
                     </div>
                 </div>
                 <div class="top10">
-                    <h3>Top 10 interesting members</h3>
+                    <h3>Top 10 members</h3>
                     <div class="top10_data">
                         <?php include "top10_user.php" ?>               
                     </div>
@@ -198,7 +245,9 @@
 
 <?php include "notification.php" ?>
     <script type="text/javascript">
-        
+        function Edit(){
+            window.location.assign("../main_forum/Code/ask_question.php?id=<?php echo $id;?>");
+        }
         function Ask(){
             window.location.assign("../main_forum/Code/ask_question.php");
         }

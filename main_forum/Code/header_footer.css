@@ -119,27 +119,29 @@ section .header .account img{
 }
 
 #search_ajax{
-    height: 10vh;
-    width:100%;
+    height: 20vh;
+    width:45%;
     background-color: white;
-    z-index: 6;
+    z-index:100;
     border-radius: 15px;
     margin-top: 5px;
     border: 1.5px solid pink;
     display: none;
-    position: relative;
+    position: fixed;
     overflow: auto;
+    left: 50px;
 }
 #search_ajax a{
     margin-top: 5px;
+    margin-bottom: 5px;
     margin-left: 15px;
 }
+
 section .main{
     margin-left: auto;
     margin-right: auto;
     width: 80vw;
 }
-
 
 section .footer{
     display: flex;
@@ -182,6 +184,7 @@ section .footer button{
         margin-left: 30px;
         margin-top: 12px;
     }
+    
     section .header .login button{
         margin-right: 5vw;
     }

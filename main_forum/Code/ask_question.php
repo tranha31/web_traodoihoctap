@@ -52,10 +52,7 @@
                 <form class="search_area" method="post" action="search.php">
                     <input type="text" name="Search" class="search" id="S" placeholder="Filter questions">
                     <img src="https://drive.google.com/uc?id=1ad0H9BfqS_MXpJEyhwymLbsO-gioXzE7">
-                    <div id="search_ajax">
-                        <div id="list">
-                        </div>
-                    </div>
+                    
                 </form>
                 
             </div>
@@ -78,7 +75,10 @@
             
         </div>
     </section>
-    
+    <div id="search_ajax">
+                        <div id="list">
+                        </div>
+                    </div>
     <div class="ask">
         <div class="a1">
             <div class="a2">
@@ -86,20 +86,50 @@
                 <h2>Ask a public question</h2>
                 <img  id="ii" src="https://media.giphy.com/media/cYy90i7ZuUjByBCqGU/source.gif">
             </div>
+            <?php
+            if(isset($_GET['id'])){
+                $id = $_GET['id'];
+                
+                $sql = "SELECT * FROM articles WHERE id = $id";
+                $result = mysqli_query($conn, $sql, null);
+                $data = mysqli_fetch_assoc($result);
+                
+                $title = $data['title'];
+                $content = $data['content'];
+                $content = html_entity_decode($content);
+                $content_code = $data['content_code'];
+                if($content_code != ""){
+                    $content_code = html_entity_decode($content_code);
+                }
+                $tag1 = $data['tag1'];
+                $tag2 = $data['tag2'];
+                $tag3 = $data['tag3'];
+                $tag = $tag1." ".$tag2." ".$tag3;
+            }
+            else{
+                $id = "";
+                $title = "";
+                $content = "";
+                $content_code = "";
+                $tag = "";
+            }
             
+            ?>
         
             <div class="content">
-            <form method="post" action="<?php echo "check_ask.php?"; ?>" onsubmit="addNewLine()">
+            <form method="post" action="<?php echo "check_ask.php"; ?>" onsubmit="addNewLine()">
                 <h4>Title <span>*</span></h4>
                 <p>Be specific and imagine you're asking a question to another person</p>
-                <input id="i1" type="text" name="title">
+                <input name="id" type="hidden" value="<?php echo $id;?>">
+                <input id="i1" type="text" name="title" value="<?php echo $title;?>">
                 <h4>Body</h4>
                 <p>Include all the information someone would need to answer your question <span>*</span></p>
-                <textarea id="contents" name="content1" rows="1000" cols="100" style="resize: none;"></textarea>
+                <textarea id="contents" name="content1" rows="1000" cols="100" style="resize: none;"><?php echo $content;?></textarea>
                 
                 <p>Code content: if you want the question to be clearer</p>
-                <textarea id="contentss" name="content2" rows="1000" cols="100" style="resize: none; "></textarea>
-                
+                <textarea id="contentss" name="content2" rows="1000" cols="100" style="resize: none; "><?php echo $content_code;?></textarea>
+                <p>Tag: you can put up to 3 tags, each tag separated by space</p>
+                <input id="i2" name="tag" type="text" value="<?php echo $tag;?>">
                 <input id="p1" type="submit" name="submitQs" value="Post your question">
             </form>
                 

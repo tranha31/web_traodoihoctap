@@ -79,8 +79,51 @@
     else{
         $conn = mysqli_connect("localhost", "root","", "projectweb20202");
         
+        $id = $_POST['id'];
         $title = $_POST["title"];
         $content = $_POST["content1"];
+        $tag = $_POST['tag'];
+        if($tag != ""){
+            $tags = explode(' ', $tag);
+            if(count($tags) == 1){
+                $tag1 = $tags[0];
+                $tag2 = "";
+                $tag3 = "";
+            }
+            else if(count($tags) == 2){
+                $tag1 = $tags[0];
+                $tag2 = $tags[1];
+                $tag3 = "";
+            }
+            else if(count($tags) == 3){
+                $tag1 = $tags[0];
+                $tag2 = $tags[1];
+                $tag3 = $tags[2];
+            }
+            else{
+                ?>
+            <div class="center popup">
+                <img src="../Picture/warning.png">
+                <p>You enter too many tags</p>
+                <p>Please comeback and try again</p>
+                <button id="dismiss" onclick="Dismiss()">OK</button>
+            </div>
+            <script>
+                document.getElementsByClassName("popup")[0].classList.add("active");
+            </script>
+            <script>
+                function Dismiss(){
+                    window.location.assign("ask_question.php");
+                }
+            </script>
+        <?php
+            }
+        }
+        else{
+            $tag1 = "";
+            $tag2 = "";
+            $tag3 = "";
+        }
         if($_POST['content2'] != ""){
             $content_code = $_POST['content2'];
         }
@@ -96,41 +139,68 @@
             $content_code = addslashes($content_code);
             $content_code = htmlspecialchars(htmlentities($content_code));
         }
+        if($id == ""){
+            $sql = "Insert into articles(account, title, content, content_code, vote, publish_date, status, tag1, tag2, tag3) values ('$account','$title','$content','$content_code',0,'$pb_date',0,'$tag1', '$tag2', '$tag3')";
         
-        $sql = "Insert into articles(account, title, content, content_code, vote, publish_date, status) values ('$account','$title','$content','$content_code',0,'$pb_date',0)";
+            mysqli_query($conn, $sql, null);
         
-        mysqli_query($conn, $sql, null);
+            $sql = "update account_infor set numberofpost = numberofpost+1 where account = '$account'";
+            mysqli_query($conn, $sql, null);
         
-        $sql = "update account_infor set numberofpost = numberofpost+1 where account = '$account'";
-        mysqli_query($conn, $sql, null);
-        
-        $sql = "select * from articles where account = '$account' and publish_date = '$pb_date'";
-        $result = mysqli_query($conn, $sql, null);
-        $row =  mysqli_fetch_assoc($result);
-        $id = $row['id'];
-        
-        
-        $sql = "Insert into account_activity(account1, activity, account2, linkpost, shortcontent, datetime) values ('$account','post question','$account','http://localhost/web_traodoihoctap/articles/main2.php?id=$id','$title','$pb_date')";
-        mysqli_query($conn, $sql, null);
+            $sql = "select * from articles where account = '$account' and publish_date = '$pb_date'";
+            $result = mysqli_query($conn, $sql, null);
+            $row =  mysqli_fetch_assoc($result);
+            $id1 = $row['id'];
         
         
-        ?>
-            <div class ="center popup">
-                <img src="../Picture/check.png">
-                <p>Success</p>
-                <p>Please continue to ask more questions for the forum to develop</p>
-                <button id="dismiss" onclick="Dismiss()">OK</button>
-            </div>
-            <script>
-                document.getElementsByClassName("popup")[0].classList.add("active");
-            </script>
-            <script>
-                function Dismiss(){
-                    window.location.assign("ask_question.php");
-                }
-            </script>
-        <?php
-    }
+            $sql = "Insert into account_activity(account1, activity, account2, linkpost, shortcontent, datetime) values ('$account','post question','$account','http://localhost/web_traodoihoctap/articles/main2.php?id=$id1','$title','$pb_date')";
+            mysqli_query($conn, $sql, null);
+        
+        
+            ?>
+                <div class ="center popup">
+                    <img src="../Picture/check.png">
+                    <p>Success</p>
+                    <p>Please continue to ask more questions for the forum to develop</p>
+                    <button id="dismiss" onclick="Dismiss()">OK</button>
+                </div>
+                <script>
+                    document.getElementsByClassName("popup")[0].classList.add("active");
+                </script>
+                <script>
+                    function Dismiss(){
+                        window.location.assign("ask_question.php");
+                    }
+                </script>
+            <?php
+        }
+        else{
+            
+            $sql = "update articles set title = '$title', content = '$content', content_code = '$content_code', tag1 = '$tag1', tag2 = '$tag2', tag3 = '$tag3' where id = $id";
+            mysqli_query($conn, $sql, null);
+            
+            $sql = "Insert into account_activity(account1, activity, account2, linkpost, shortcontent, datetime) values ('$account','edit question','$account','http://localhost/web_traodoihoctap/articles/main2.php?id=$id','$title','$pb_date')";
+            mysqli_query($conn, $sql, null);
+            
+            ?>
+                <div class ="center popup">
+                    <img src="../Picture/check.png">
+                    <p>Success</p>
+                    <p>Please continue to ask more questions for the forum to develop</p>
+                    <button id="dismiss" onclick="Dismiss()">OK</button>
+                </div>
+                <script>
+                    document.getElementsByClassName("popup")[0].classList.add("active");
+                </script>
+                <script>
+                    function Dismiss(){
+                        window.location.assign("../../articles/main.php?id=<?php echo $id;?>");
+                    }
+                </script>
+            <?php
+        }
+        
+        }
     }
 ?>
     </body>

@@ -24,10 +24,7 @@
                 <form class="search_area" method="post" action="search.php">
                     <input type="text" name="Search" class="search" id="S" placeholder="Filter questions">
                     <img src="https://drive.google.com/uc?id=1ad0H9BfqS_MXpJEyhwymLbsO-gioXzE7">
-                    <div id="search_ajax">
-                        <div id="list">
-                        </div>
-                    </div>
+                    
                 </form>
                 
             </div>
@@ -52,7 +49,10 @@
         
         
     </section>
-    
+    <div id="search_ajax">
+        <div id="list">
+        </div>
+    </div>
    <div class = "main1">
 
         <?php 
@@ -120,11 +120,11 @@
                 </div>
                  
             </div>
-            <div class="vertical"></div>
+            
             <div class="content">
                 
                 <div class="title">
-                    
+                
                 <div class="title_b_ask">
                     <p>Users</p>
                     <button id="ask_qs" onclick="Ask()">Ask Question</button>
@@ -302,7 +302,7 @@
                 
             <div class="top_ask_qs">
                 <div class="top_header">
-                    <p>Top Users</p>
+                    <p>Top Members</p>
                     <img src="https://media.giphy.com/media/oVouQovpspyNqO3mhW/source.gif">
                 </div>
                 <div class="list_top_qs">
@@ -314,8 +314,7 @@
                             ?>
                     <div class="content_t_qs">
                         <div class="vote">
-                            <p><?php echo $row["numberofheart"]?></p>
-                            <p>votes</p>
+                           
                         </div>
                         <div class="content2">
                             <a href="../../header_footer/ValidUser.php?account=<?php echo $row['account']; ?>"><?php echo $row['account']; ?></a>
@@ -342,7 +341,7 @@
         
         
     <div class="notification" id="notifi">
-        <div class="modalWindow" id="modalWindow" hidden>
+        <div class="modalWindow" id="modalWindow" hidden style="z-index:20;">
                     
         </div>
         <div class="down">

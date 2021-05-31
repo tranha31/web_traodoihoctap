@@ -6,6 +6,7 @@
     <meta name = "viewport" content = "width = device-width, initial-scale = 1">
     <link rel = "stylesheet" href = "../main_forum/Code/header_footer.css">
     <link rel="stylesheet" href = "index.css">    
+    
 </head>
 <body>
     <section>
@@ -19,10 +20,7 @@
                 <form class="search_area" method="post" action="../main_forum/Code/search.php">
                     <input type="text" name="Search" class="search" id="S" placeholder="Filter questions">
                     <img src="https://drive.google.com/uc?id=1ad0H9BfqS_MXpJEyhwymLbsO-gioXzE7">
-                    <div id="search_ajax">
-                        <div id="list">
-                        </div>
-                    </div>
+                    
                 </form>
                 
             </div>
@@ -47,7 +45,10 @@
         
         
     </section>
-    
+    <div id="search_ajax">
+                        <div id="list">
+                        </div>
+                    </div>
     <script type="text/javascript">
         function Login(){
             window.location.assign("../login/login.php");

@@ -346,6 +346,7 @@ section .main .edit_infor .communication input{
         border-radius: 10px;
         margin-left: 20px;
         margin-right: 20px;
+        color: blue;
     }
     section .main #activity_history{
         display: flex;
@@ -403,7 +404,14 @@ section .main .edit_infor .communication input{
         width: 40%;
     }
 }
-
+@media (max-width: 480px){
+    section .main #account_information .selection_button button{
+        width: 65px;
+        height: 50px;
+        font-size: 11px;
+    }
+    
+}
 @media (min-width: 900px){
     section .main{
         width: 80vw;

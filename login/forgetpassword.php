@@ -61,7 +61,7 @@ if(isset($_POST['submit'])){
                     $htmlStr = "";
                     $htmlStr .= "Hi " . $em."\n";
  
-                    $htmlStr .= "Please click the link below to verify your subscription and have access to the download center.\n";
+                    $htmlStr .= "You just changed your password. Please click the link below to verify your subscription and have access to the download center.\n";
                     $htmlStr .= "$verificationLink"."\n";
  
                     $htmlStr .= "Kind regards,";

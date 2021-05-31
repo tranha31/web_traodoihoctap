@@ -38,6 +38,26 @@
                         </div>
                         <div class="moreinfo">
                             <h5><pre>Asked: <?php echo $publish_date ?></pre></h5>
+                            <?php
+                            if($tag1 && $tag2 && $tag3){
+                                ?>
+                                <button><a href="#"><?php echo $tag1; ?></a></button>
+                                <button><a href="#"><?php echo $tag2; ?></a></button>
+                                <button><a href="#"><?php echo $tag3; ?></a></button>
+                                <?php
+                            }
+                            else if($tag1 && $tag2 && !$tag3){
+                                ?>
+                                <button><a href="#"><?php echo $tag1; ?></a></button>
+                                <button><a href="#"><?php echo $tag2; ?></a></button>
+                                <?php
+                            }
+                            else if($tag1 && !$tag2 && !$tag3){
+                                ?>
+                                <button><a href="#"><?php echo $tag1; ?></a></button>
+                                <?php
+                            }    
+                            ?>
                         </div>
                     </div>
                     <div class="body">

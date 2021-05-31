@@ -9,17 +9,16 @@ if(!isset($query)){
 if($query != ""){
     $conn = mysqli_connect("localhost", "root","", "projectweb20202");
     $find = explode(' ', $query);
-    $sql = "Select * from articles where ";
+    $sql = "Select * from tags where ";
     foreach($find as $key => $value){
-        $sql = $sql."title like '%$value%' or ";
+        $sql = $sql."tag like '%$value%' or";
     }
     $sql = substr($sql, 0, -3);
     
     $result = mysqli_query($conn, $sql, null);
     if(mysqli_num_rows($result) > 0){
         while($row = mysqli_fetch_assoc($result)){
-            echo "<id>".$row['id']."</id>\n";
-            echo "<name>".$row['title']."</name>\n";
+            echo "<tag>".$row['tag']."</tag>\n";
         }
     }
     mysqli_close($conn);

@@ -1,5 +1,5 @@
 body{
-    height: 100vh;
+    height: auto;
     width: 100vw;
     display: flex;
     flex-direction: row;
@@ -103,7 +103,6 @@ button:hover{
 @media(max-width:480px){
     body{
         flex-direction: column;
-        height: 120vh;
     }
     #welcome{
         height: 10vh;
@@ -125,23 +124,32 @@ button:hover{
         width: 90vw;
         margin-left: auto;
         margin-right: auto;
-        margin-top: 2px;
     }
+
     
 }
-@media(min-width:580px){
+@media(min-width:481px){
     #welcome{
         width: 40vw;
     }
     #welcome h2{
         margin-left: 10px;
+        font-size: 20px;
     }
     #welcome h4{
         margin-left: 10px;
-        font-size: 20px;
+        font-size: 15px;
     }
     #main{
         margin-left: 0;
+    }
+}
+@media(min-width:640px){
+    #welcome h2{
+        font-size: 30px;
+    }
+    #welcome h4{
+        font-size: 20px;
     }
 }
 @media(min-width:1023px){
@@ -150,6 +158,7 @@ button:hover{
     }
     #welcome h2{
         margin-left: 12vw;
+        font-size: 80px;
     }
     #welcome h4{
         margin-left: 12vw;
